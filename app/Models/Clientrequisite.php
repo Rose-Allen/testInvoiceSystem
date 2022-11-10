@@ -11,5 +11,11 @@ class Clientrequisite extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = false;
+    protected $fillable = [
+        'title_bank',
+        'iik',
+        'bik',
+        'kbe',
+        'client_id'
+    ];
 }

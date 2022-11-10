@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Personal\UserRequisite;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequisite\UserRequisiteStoreRequest;
+use App\Http\Requests\UserRequisite\UserRequisiteUpdateRequest;
 use App\Models\Userrequisite;
 use Illuminate\Http\Request;
 
@@ -20,18 +22,19 @@ class UserRequisiteController extends Controller
         return view('personal.userRequisite.create', compact('user'));
     }
 
-    public function store(Request $request)
+    public function store(UserRequisiteStoreRequest $request)
     {
 
-        $data = $request->validate(
-            [
-                'title_bank' => 'required',
-                'iik' => 'required',
-                'bik' => 'required',
-                'kbe' => 'required',
-                'user_id' => 'required',
-            ]
-        );
+//        $data = $request->validate(
+//            [
+//                'title_bank' => 'required',
+//                'iik' => 'required',
+//                'bik' => 'required',
+//                'kbe' => 'required',
+//                'user_id' => 'required',
+//            ]
+//        );
+        $data = $request->validated();
 
         Userrequisite::create($data);
         return redirect()->route('personal.user.requisite.index');
@@ -44,17 +47,18 @@ class UserRequisiteController extends Controller
 
     }
 
-    public function update(Userrequisite $userrequisite, Request $request)
+    public function update(Userrequisite $userrequisite, UserRequisiteUpdateRequest $request)
     {
-        $data = $request->validate(
-            [
-                'title_bank' => 'required',
-                'iik' => 'required',
-                'bik' => 'required',
-                'kbe' => 'required',
-            ]
-        );
+//        $data = $request->validate(
+//            [
+//                'title_bank' => 'required',
+//                'iik' => 'required',
+//                'bik' => 'required',
+//                'kbe' => 'required',
+//            ]
+//        );
 
+        $data = $request->validated();
         $userrequisite->update($data);
         return redirect()->route('personal.user.requisite.index');
     }

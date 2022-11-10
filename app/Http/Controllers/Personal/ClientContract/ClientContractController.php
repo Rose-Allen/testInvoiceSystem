@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Personal\ClientContract;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientContract\ClientContractStoreRequest;
+use App\Http\Requests\ClientContract\ClientContractUpdateRequest;
 use App\Models\Client;
 use App\Models\User;
 use App\Models\Clentcontract;
@@ -23,26 +25,12 @@ class ClientContractController extends Controller
 
     }
 
-    public function store(Request $request, Client $client)
+    public function store(ClientContractStoreRequest $request, Client $client)
     {
         if ($request->hasFile('file')) {
+            $data = $request->validated();
+            Clentcontract::create($data)->addMedia($request->file('file'))->toMediaCollection('contract');
 
-            $request->validate([
-                'title' => 'required|string',
-                'date' => 'required|',
-                'client_id' => 'required',
-                'file' => 'required',
-            ]);
-
-
-            Clentcontract::create([
-                'title' => $request->title,
-                'date_contract' => $request->date,
-                'file' => $request->file,
-                'client_id' => $request->client_id,
-            ])->addMedia($request->file('file'))->toMediaCollection('contract');
-//            $clients = Clentcontract::where('client_id', $client->id);
-//            $clients->addMedia($request->file('file'))->toMediaCollection('contract');
         }
     }
 
@@ -52,23 +40,25 @@ class ClientContractController extends Controller
         return view('personal.clientContract.edit', compact('clentcontract'));
     }
 
-    public function update(Request $request, Client $client, Clentcontract $clentcontract)
+    public function update(ClientContractUpdateRequest $request, Client $client, Clentcontract $clentcontract)
     {
-        $request->validate(
-            [
-                'title' => 'required|string',
-                'date' => 'required|',
-                'file' => 'required',
+//        $data = $request->validate(
+//            [
+//                'title' => 'required|string',
+//                'date' => 'required',
+//                'file' => 'nullable',
+//
+//            ]
+//        );
+        $data = $request->validated();
+        $clentcontract->update($data);
 
-            ]
-        );
-
-
-        $clentcontract->update([
-            'title' => $request->title,
-            'date_contract' => $request->date,
-            'file' => $request->file,
-        ]);
+//        $clentcontract->update([
+//            'title' => $request->title,
+//            'date_contract' => $request->date,
+//            'file' => $request->file,
+//        ]);
+        $clentcontract->update($data);
         if ($request->hasFile('file')) {
             $clentcontract->clearMediaCollection('contract');
             $clentcontract->addMedia($request->file('file'))->toMediaCollection('contract');

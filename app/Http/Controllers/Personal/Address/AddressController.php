@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Personal\Address;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Address\AddressStoreRequest;
+use App\Http\Requests\Address\AddressUpdateRequest;
 use App\Models\Address;
 use App\Models\AddressCity;
 use App\Models\AddressCountry;
@@ -25,17 +27,9 @@ class AddressController extends Controller
         return view('personal.address.create', compact('cities', 'countries', 'client'));
     }
 
-    public function store(Request $request, Client $client)
+    public function store(AddressStoreRequest $request, Client $client)
     {
-        $data = $request->validate([
-            'address' => 'required|string',
-            'home' => 'required|string',
-            'flat' => 'required|string',
-            'client_id' => 'required|integer',
-            'country_id' => 'required|integer|exists:address_countries,id',
-            'city_id' => 'required|integer|exists:address_cities,id',
-        ]);
-        Address::create($data);
+        Address::query()->create($request->all());
 
         return redirect()->route('personal.client.index');
     }
@@ -53,16 +47,9 @@ class AddressController extends Controller
         return view('personal.address.edit', compact('address', 'countries', 'cities', 'client'));
     }
 
-    public function update(Request $request, Address $address)
+    public function update(AddressUpdateRequest $request, Address $address)
     {
-        $data = $request->validate([
-            'address' => 'required|string',
-            'home' => 'required|string',
-            'flat' => 'required|string',
-//            'client_id'=>'required|integer',
-            'country_id' => 'required|integer|exists:address_countries,id',
-            'city_id' => 'required|integer|exists:address_cities,id',
-        ]);
+        $data = $request->validated();
         $address->update($data);
         return redirect()->route('personal.address.show', $address->id);
     }

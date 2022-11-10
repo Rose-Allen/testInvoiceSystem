@@ -22,8 +22,8 @@ route::middleware('guest')->group(function () {
     Route::get('/login', Login::class)->name('login');
 });
 
-
-Route::group(['namespace' => 'Personal', 'prefix' => 'personal', 'middleware' => ['auth']], function () {
+//'middleware' => ['auth']
+Route::group(['namespace' => 'Personal', 'prefix' => 'personal'], function () {
 
     Route::group(['namespace' => 'Main'], function () {
         Route::get('/', [App\Http\Controllers\Personal\IndexController::class, 'index'])->name('personal.main.index');

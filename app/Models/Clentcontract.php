@@ -16,8 +16,12 @@ class Clentcontract extends Model implements HasMedia
     use InteractsWithMedia;
     use SoftDeletes;
 
-    protected $guarded = false;
-
+    protected $fillable = [
+        'title',
+        'file',
+        'date_contract',
+        'client_id',
+    ];
 
     public function contracts(){
         return $this->hasMany(Media::class);

@@ -11,5 +11,10 @@ class Usercontract extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = false;
+   protected $fillable = [
+       'title',
+       'file',
+       'date_contract',
+       'user_id',
+   ];
 }

@@ -10,5 +10,8 @@ class AddressCity extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $guarded = false;
+
+    protected $fillable = [
+        'name',
+    ];
 }

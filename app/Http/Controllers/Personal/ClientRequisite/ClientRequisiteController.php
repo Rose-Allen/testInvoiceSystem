@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Personal\ClientRequisite;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientRequisite\ClientRequisiteStoreRequest;
+use App\Http\Requests\ClientRequisite\ClientRequisiteUpdateRequest;
 use App\Models\Address;
 use App\Models\Client;
 use App\Models\Clientrequisite;
@@ -22,19 +24,20 @@ class ClientRequisiteController extends Controller
         return view('personal.clientRequisite.create', compact('client'));
     }
 
-    public function store(Request $request)
+    public function store(ClientRequisiteStoreRequest $request)
     {
 
-        $data = $request->validate(
-            [
-                'title_bank' => 'required',
-                'iik' => 'required',
-                'bik' => 'required',
-                'kbe' => 'required',
-                'client_id' => 'required|integer',
-            ]
-        );
+//        $data = $request->validate(
+//            [
+//                'title_bank' => 'required',
+//                'iik' => 'required',
+//                'bik' => 'required',
+//                'kbe' => 'required',
+//                'client_id' => 'required|integer',
+//            ]
+//        );
 
+        $data = $request->validated();
         Clientrequisite::create($data);
         return redirect()->back();
 
@@ -46,17 +49,17 @@ class ClientRequisiteController extends Controller
 
     }
 
-    public function update(Clientrequisite $clientrequisite, Request $request)
+    public function update(Clientrequisite $clientrequisite, ClientRequisiteUpdateRequest $request)
     {
-        $data = $request->validate(
-            [
-                'title_bank' => 'required',
-                'iik' => 'required',
-                'bik' => 'required',
-                'kbe' => 'required',
-            ]
-        );
-
+//        $data = $request->validate(
+//            [
+//                'title_bank' => 'required',
+//                'iik' => 'required',
+//                'bik' => 'required',
+//                'kbe' => 'required',
+//            ]
+//        );
+        $data = $request->validated();
         $clientrequisite->update($data);
         return redirect()->back();
     }

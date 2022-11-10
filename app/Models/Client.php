@@ -14,7 +14,17 @@ class Client extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use SoftDeletes;
-    protected $guarded = false;
+
+    protected $fillable = [
+        'bin',
+        'company_name',
+        'business_name',
+        'name',
+        'phone',
+        'email',
+        'user_id',
+
+    ];
 
 
     public function user(){

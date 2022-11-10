@@ -49,11 +49,12 @@ class ClientController extends Controller
         if ($response->successful()) {
             $data = json_decode($response->body())->obj->name;
             $data_business_name = json_decode($response->body())->obj->krpName;
-
             $company_name = $data;
             $business_name = $data_business_name;
 
         }
+
+
 
 
         $request->user()->clients()->create([

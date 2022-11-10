@@ -10,7 +10,15 @@ class Address extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $guarded = false;
+
+    protected  $fillable = [
+        'country_id',
+        'city_id',
+        'address',
+        'home',
+        'flat',
+        'client_id',
+    ];
 
 
     public function client(){

@@ -48,10 +48,10 @@
                             </div>
 
                             <div class="form-group w-25">
-                                <input type="date" name="date" class="form-control" placeholder="date"
-                                       value="{{old('date')}}"
+                                <input type="date" name="date_contract" class="form-control" placeholder="date"
+                                       value="{{old('date_contract')}}"
                                 >
-                                @error('title')
+                                @error('date_contract')
                                 <div class="text-danger">{{$message}}</div>
                                 @enderror
                             </div>
